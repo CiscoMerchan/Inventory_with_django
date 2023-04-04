@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product,Client, Supplier, ClientOrder, PurchaseOrder
 
 # Register your models here.
 
@@ -15,4 +15,11 @@ class ProductAdmin(admin.ModelAdmin):
     """To add a filter in the admin dashboard in 'Product' table"""
     list_filter = ['category']
 # Add models in the Admin Dashboard
+
+
+#___Admin Dashboard Register____
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Supplier)
+admin.site.register(Client)
+admin.site.register(PurchaseOrder)
+admin.site.register(ClientOrder)
