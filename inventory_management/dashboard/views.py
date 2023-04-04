@@ -14,8 +14,3 @@ def product(request):
 
 def order(request):
     return render(request, "dashboard/order.html")
-# from .models import Supplier
-
-# def supplier_list(request):
-#     suppliers = Supplier.objects.all()
-#     return render(request, 'supplier_list.html', {'suppliers': suppliers})

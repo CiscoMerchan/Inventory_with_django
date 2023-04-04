@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from user import views as user_view
 urlpatterns = [
+    # activate the admin dashboard
     path('admin/', admin.site.urls),
+    # include all the path crated in urls.py folder inside dashboard app  
     path('', include('dashboard.urls')),
+    # register is from user app and user_view(is how the view is import). .register(is the name ofthe funtion we are calling into the path).
+    path('register/', user_view.register, name='user-register'),
 ]
