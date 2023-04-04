@@ -39,7 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.InventoryConfig',
     'user.apps.UserConfig',
+    'crispy_forms',
+    "crispy_bootstrap4",
 ]
+
+# Adding crispy template
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization

@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from user import views as user_view
+from django.contrib.auth import views as auth_views
+
+
 urlpatterns = [
     # activate the admin dashboard
     path('admin/', admin.site.urls),
@@ -23,4 +26,8 @@ urlpatterns = [
     path('', include('dashboard.urls')),
     # register is from user app and user_view(is how the view is import). .register(is the name ofthe funtion we are calling into the path).
     path('register/', user_view.register, name='user-register'),
+    # Login using .LoginView.asview
+    path('login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='user-login'),
+    # Logout using .LogoutView.asview
+    path('logout/',auth_views.LogoutView.as_view(template_name='user/logout.html'), name='user-logout' ),
 ]
