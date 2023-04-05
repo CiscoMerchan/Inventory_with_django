@@ -11,7 +11,7 @@ admin.site.site_header ="Welcome to your Inventory"
 of table model in models.py. Then pass the class name in example: 'admin.site.register(Product, ClassName)' """
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'description', 'quantity')
+    list_display = ('code','name', 'category', 'description', 'quantity','image')
     """To add a filter in the admin dashboard in 'Product' table"""
     list_filter = ['category']
 # Add models in the Admin Dashboard

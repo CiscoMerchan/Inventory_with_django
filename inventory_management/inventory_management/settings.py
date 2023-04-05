@@ -141,3 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Once the user login this is the url address where the user will be redirect
 LOGIN_REDIRECT_URL = 'dashboard-index'
+
+"""To render the upload image in product"""
+MEDIA_ROOT = (BASE_DIR/'media')
+
+MEDIA_URL = '/media/'

@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from user import views as user_view
 from django.contrib.auth import views as auth_views
-
+# render images in the url
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # activate the admin dashboard
@@ -30,4 +32,4 @@ urlpatterns = [
     path('', auth_views.LoginView.as_view(template_name='user/login.html'), name='user-login'),
     # Logout using .LogoutView.asview
     path('logout/',auth_views.LogoutView.as_view(template_name='user/logout.html'), name='user-logout' ),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
