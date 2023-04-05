@@ -20,9 +20,10 @@
             <hr>
             <form method="POST">
                 {% csrf_token %}
-                {{form|crispy}}
+                {{ form|crispy }}
+               
                 
-                <input class="btn btn-success btn-block" type="submit" value="Add Supplier">
+                <input class="btn btn-success btn-block" type="submit" value="Add Client">
             </form>
         </div>
     </div>
@@ -30,24 +31,21 @@
         <table class="table bg-white">
             <thead class="bg-info text-white">
                 <tr>
-                    <th scope="col">Code</th>
-                    <th scope="col">Name</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Quantity</th>
-                    <!-- <th scope="col">Activity</th> -->
-                    <th scope="col">Description</th>
-                    <th scope="col">Image</th>
-                </tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Email</th>
+                   
             </thead>
             <tbody>
-                {% for item in items %}
+                {% for supplier in suppliers %}
                 <tr>
-                    <td>{{ item.code }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.category }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.description }}</td>
-                    <td><img class="image_product" src="{{ item.image }}" alt="{{ item.name }}"  ></td>
+            
+
+                    <td>{{ supplier.category }}</td>
+                    <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.telephone }}</td>
+                    <td>{{ supplier.email }}</td>
                     <td>
                         <a class="btn btn-info btn-sm mr-2"
                             href="#">Edit</a>

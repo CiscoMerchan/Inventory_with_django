@@ -5,10 +5,10 @@ using 'login_required' (inbuild in django) as decorator"""
 from django.contrib.auth.decorators import login_required
 
 # to import model to render in views that will take it in to .html
-from .models import Product, Client
+from .models import Product, Supplier, Client
 
 # to render the product form to enter new products
-from .forms import ProductForm, ClientForm
+from .forms import ProductForm, ClientForm, SupplierFrom
 
 # Create your views here.
 
@@ -63,6 +63,27 @@ def client(request):
         "forms":forms,
     }
     return render(request, 'dashboard/client.html', context)
+
+@login_required(login_url='user-login')
+def supplier(request):
+    if request.method == 'POST':
+        form = SupplierFrom(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-supplier')
+    else:
+        form = SupplierFrom()
+
+    suppliers = Supplier.objects.all()    
+
+    context = {
+        'suppliers':suppliers,
+        'form':form
+    }
+
+
+    return render(request, "dashboard/supplier.html", context)
+
 
 @login_required(login_url='user-login')
 def order(request):

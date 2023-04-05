@@ -6,7 +6,8 @@ urlpatterns = [
     path('staff/', views.staff, name='dashboard-staff'),
     path('product/', views.product, name='dashboard-product'),
     path('order/', views.order, name='dashboard-order'),
-    path('client/', views.client, name='dashboard-client')
+    path('client/', views.client, name='dashboard-client'),
+    path('supplier/', views.supplier, name='dashboard-supplier'),
     
 ]
 # path('suppliers/', supplier_list, name='supplier_list'),
