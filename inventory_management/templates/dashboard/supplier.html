@@ -1,0 +1,64 @@
+
+{% extends 'partials/base.html' %}
+{% block title %}Suppliers page{% endblock %}
+<!-- Loading crispy to form -->
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'partials/topside.html' %}
+<div class="row my-4">
+    <div class="col-md-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card card-body">
+            <h5>Add New Supplier</h5>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                
+                <input class="btn btn-success btn-block" type="submit" value="Add Supplier">
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8">  
+        <table class="table bg-white">
+            <thead class="bg-info text-white">
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                    <!-- <th scope="col">Activity</th> -->
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.code }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.description }}</td>
+                    <td><img class="image_product" src="{{ item.image }}" alt="{{ item.name }}"  ></td>
+                    <td>
+                        <a class="btn btn-info btn-sm mr-2"
+                            href="#">Edit</a>
+                        <a class="btn btn-danger btn-sm ml-2"
+                            href="#">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -3,7 +3,7 @@ and will create a new product """
 # django form module
 from django import forms
 # import the model object 
-from .models import Product
+from .models import Product, Client
 
 # Creation of the form 
 class ProductForm(forms.ModelForm):
@@ -12,6 +12,14 @@ class ProductForm(forms.ModelForm):
         fields = [
             'code','name','category','quantity','description','image'
         ] #Form fields
+
+class ClientForm(forms.ModelForm):
+    class Meta:
+        model= Client
+        fields = [
+            'name','telephone','email'
+            ]
+
 
         
 
