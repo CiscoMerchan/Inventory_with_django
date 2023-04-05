@@ -6,16 +6,16 @@
 
 <div class="container">
     <div class="row mt-5 ">
-        <div class="col-md-6 ">
-            <div class="border bg-white ">
+        <div class="col-md-6 offset-md-3 ">
+            <div class="border p-3 bg-white ">
                 <h3 class="">Login Page</h3>
                 <hr>
                 <form  method="post">
-                    {% csrf_token %} 
-                        {{ form|crispy }}<br>
+                    {% csrf_token %}
+                    {{ form|crispy }}<br>
                             <input class="btn btn-primary" type="submit" value="Register">
                 </form>
-            </div>
+            </div>s
         </div>
     </div>
 </div>
