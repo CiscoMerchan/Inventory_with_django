@@ -27,7 +27,7 @@ urlpatterns = [
     # register is from user app and user_view(is how the view is import). .register(is the name ofthe funtion we are calling into the path).
     path('register/', user_view.register, name='user-register'),
     # Login using .LoginView.asview
-    path('login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='user-login'),
+    path('', auth_views.LoginView.as_view(template_name='user/login.html'), name='user-login'),
     # Logout using .LogoutView.asview
     path('logout/',auth_views.LogoutView.as_view(template_name='user/logout.html'), name='user-logout' ),
 ]

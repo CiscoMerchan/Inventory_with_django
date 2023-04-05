@@ -14,7 +14,7 @@ def register(request):
         if form.is_valid():
             form.save()
             print('ojk')
-            return redirect('dashboard-index')
+            return redirect('user-login')
     else:    
         form =CreateUserForm()
     return render(request, 'user/register.html',{'form':form})
