@@ -132,15 +132,18 @@ def client_delete(request,pk):
  
 # ------------END CLIENT-----------------------#
 
-
+# ------------SUPPLIER-----------------------#
+# CREATE AND READ
 @login_required(login_url='user-login')
 def supplier(request):
+    # CREATE
     if request.method == 'POST':
         form = SupplierFrom(request.POST)
         if form.is_valid():
             form.save()
             return redirect('dashboard-supplier')
     else:
+        # READ
         form = SupplierFrom()
 
     suppliers = Supplier.objects.all()    
@@ -153,7 +156,36 @@ def supplier(request):
 
     return render(request, "dashboard/supplier.html", context)
 
+# UPDATE (EDIT)
+def supplier_update(request,pk):
+    item_to_update = Supplier.objects.get(id=pk)
+    if request.method == 'POST':
+            form = SupplierFrom(request.POST, 
+                               instance=item_to_update) #item_to_update, will render the choosen supplier and rendered in the form
+            if form.is_valid():
+                form.save()
+            return redirect('dashboard-supplier')
+    else:
+        form = SupplierFrom(instance=item_to_update)
+    context = {
+            'form':form,
 
+        }    
+    return render(request,'dashboard/supplier_update.html', context)
+
+
+# DELETE
+def supplier_delete(request,pk):
+    supplier = Supplier.objects.get(id = pk)
+    if request.method == 'POST':
+        supplier.delete()
+        return redirect('dashboard-supplier')
+   
+    
+    return render(request,'dashboard/supplier_delete.html')
+
+
+# ------------END SUPPLIER-----------------------#
 @login_required(login_url='user-login')
 def order(request):
     return render(request, "dashboard/order.html")
