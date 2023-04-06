@@ -43,7 +43,7 @@ class PurchaseOrder(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='purchase_orders')
     supplier = models.CharField(max_length=255)
     quantity = models.IntegerField()
-    order_date = models.DateField()
+    order_date = models.DateField(auto_now_add=True)
     
     # to return in admin dashboard the name of the columns
     def __str__(self):
