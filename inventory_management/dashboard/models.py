@@ -1,12 +1,13 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 """Product"""
 class Product(models.Model):
-    code = models.CharField(max_length=20)
+    code = models.CharField(max_length=20, null=True)
     name = models.CharField(max_length=100, null=True)
     category = models.CharField(max_length=20)
-    description = models.TextField(max_length=200)
+    description = models.TextField(max_length=150)
     quantity = models.PositiveIntegerField(null=True)
     image = models.ImageField(default='/static/img/product.png', upload_to='product_images')
 

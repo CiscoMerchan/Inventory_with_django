@@ -11,7 +11,7 @@ from .models import Product, Supplier, Client
 from .forms import ProductForm, ClientForm, SupplierFrom
 
 # Create your views here.
-
+# ------------INDEX -----------------------#
 """@login_required(decorator) then 'login_url'=the value will be the precondition 
 necesary to acces to the requested page. in this case means that is the user is login
  user have access to 'dashboard/index.html"""
@@ -19,13 +19,18 @@ necesary to acces to the requested page. in this case means that is the user is 
 def index(request):
     
     return render(request, "dashboard/index.html")
+# ------------END INDEX-----------------------#
 
 @login_required(login_url='user-login')
 def staff(request):
     return render(request, "dashboard/staff.html")
 
+
+# ------------PRODUCT-----------------------#
+#---- CREATE AND READ PRODUCT
 @login_required(login_url='user-login')
 def product(request):
+    #CREATE PRODUCT
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -33,7 +38,7 @@ def product(request):
             return redirect('dashboard-product')
     else:
         form = ProductForm()    
-    
+    # READ PRODUCT
     items = Product.objects.raw(
         'SELECT * FROM dashboard_product'
         )
@@ -44,9 +49,43 @@ def product(request):
 
     return render(request, "dashboard/product.html", context)
 
+# DELETE PRODUCT
+def product_delete(request,pk):
+    # item will retain the id of thproduct which in this case will be the pk that model asign automaticly to each product
+    item = Product.objects.get(id = pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('dashboard-product')
+    return render(request, 'dashboard/product_delete.html')
+
+# UPDATE PRODUCT (Edit)
+def product_update(request,pk):
+    
+    item_to_update = Product.objects.get(id=pk)
+    if request.method == 'POST':
+            form = ProductForm(request.POST, 
+                               instance=item_to_update) #item_to_update, will render the choosen product and rendered in the form
+            if form.is_valid():
+                form.save()
+            return redirect('dashboard-product')
+    else:
+        form = ProductForm(instance=item_to_update)
+    context = {
+            'form':form,
+
+        }    
+        
+    return render(request, 'dashboard/product_update.html',context)
+
+
+
+# ------------END PRODUCT-----------------------#
+
+# ------------CLIENT-----------------------#
+# CREATE AND READ
 @login_required(login_url='user-login')
 def client(request):
-
+    # CREATE
     if request.method == 'POST':
         forms = ClientForm(request.POST)
         if forms.is_valid():
@@ -55,7 +94,7 @@ def client(request):
     else:
         forms = ClientForm()
 
-
+    # READ
     clients = Client.objects.all()
 
     context = {
@@ -63,6 +102,13 @@ def client(request):
         "forms":forms,
     }
     return render(request, 'dashboard/client.html', context)
+
+# EDIT
+def client_update(resquest):
+    return render(resquest,'dasboard/cient_update.html')
+ 
+# ------------END CLIENT-----------------------#
+
 
 @login_required(login_url='user-login')
 def supplier(request):
