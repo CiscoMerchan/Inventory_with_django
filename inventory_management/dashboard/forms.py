@@ -28,10 +28,12 @@ class SupplierFrom(forms.ModelForm):
         ]
        
 class PurchaseOrderForm(forms.ModelForm):
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all())
+
     class Meta:
         model= PurchaseOrder
         fields = [
-            'orderCode', 'product', 'supplier','quantity', 
+            'orderCode', 'product', 'supplier', 'quantity',
         ]
     
 
