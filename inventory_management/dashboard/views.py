@@ -104,8 +104,31 @@ def client(request):
     return render(request, 'dashboard/client.html', context)
 
 # EDIT
-def client_update(resquest):
-    return render(resquest,'dasboard/cient_update.html')
+def client_update(request,pk):
+    item_to_update = Client.objects.get(id=pk)
+    if request.method == 'POST':
+            form = ClientForm(request.POST, 
+                               instance=item_to_update) #item_to_update, will render the choosen client and rendered in the form
+            if form.is_valid():
+                form.save()
+            return redirect('dashboard-client')
+    else:
+        form = ClientForm(instance=item_to_update)
+    context = {
+            'form':form,
+
+        }    
+    return render(request,'dashboard/client_update.html', context)
+
+# DELETE
+def client_delete(request,pk):
+    client = Client.objects.get(id = pk)
+    if request.method == 'POST':
+        client.delete()
+        return redirect('dashboard-client')
+   
+    
+    return render(request,'dashboard/client_delete.html')
  
 # ------------END CLIENT-----------------------#
 
