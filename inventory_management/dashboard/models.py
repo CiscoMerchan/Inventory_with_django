@@ -23,7 +23,7 @@ class Client(models.Model):
 
     # to return in admin dashboard the name of the columns
     def __str__(self):
-        return f'Client Name: {self.name}. telephone: {self.telephone}. email: {self.email}'
+        return f'{self.name}'
 
 """Supplier"""    
 class Supplier(models.Model):

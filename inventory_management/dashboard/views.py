@@ -11,7 +11,10 @@ from .models import Product, Supplier, Client, PurchaseOrder, ClientOrder
 from .forms import ProductForm, ClientForm, SupplierFrom, PurchaseOrderForm, SearchPurchaseOrderForm, ClientOrderForm
 
 # to seach 
-from django.db.models import Q
+# from django.db.models import 
+
+# Message
+from django.contrib import messages
 
 # Create your views here.
 # ------------INDEX -----------------------#
@@ -263,10 +266,13 @@ def client_order(request):
 
             # Update the product quantity
             product = order.product
-            product.quantity -= order.quantity
-            product.save()
-
-            return redirect('dashboard-client-order')
+            if product.quantity < order.quantity:
+                messages.error(request, f'Your order {order.quantity} for this product is superior to the stock in place!')
+            else:
+                product.quantity -= order.quantity
+                product.save()
+                messages.success(request, f'Your order has been succesfuly added!')
+                return redirect('dashboard-client-order')
     else:
         # READ
         form = ClientOrderForm()
