@@ -3,7 +3,7 @@ and will create a new product """
 # django form module
 from django import forms
 # import the model object 
-from .models import Product, Client, Supplier, PurchaseOrder
+from .models import Product, Client, Supplier, PurchaseOrder, ClientOrder
 
 # Creation of the form 
 class ProductForm(forms.ModelForm):
@@ -48,6 +48,14 @@ class SearchPurchaseOrderForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
         }
 
-    
+
+class ClientOrderForm(forms.ModelForm):
+    client = forms.ModelChoiceField(queryset=Client.objects.all())
+
+    class Meta:
+        model= ClientOrder
+        fields = [
+            'orderCode', 'product', 'client', 'quantity',
+        ]
 
 

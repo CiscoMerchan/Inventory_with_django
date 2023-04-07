@@ -53,9 +53,9 @@ class PurchaseOrder(models.Model):
 class ClientOrder(models.Model):
     orderCode = models.CharField(max_length=20, null=True)
     product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='client_orders')
-    client = models.CharField(max_length=255)
+    client = models.ForeignKey(Client,on_delete=models.CASCADE, related_name='client_orders')
     quantity = models.IntegerField()
-    order_date = models.DateField()
+    order_date = models.DateField(auto_now_add=True)
     
     # to return in admin dashboard the name of the columns
     def __str__(self):
