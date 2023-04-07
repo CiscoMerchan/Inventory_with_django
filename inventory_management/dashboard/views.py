@@ -23,8 +23,32 @@ necesary to acces to the requested page. in this case means that is the user is 
  user have access to 'dashboard/index.html"""
 @login_required(login_url='user-login')
 def index(request):
+    product = Product.objects.all()
+    product_count = product.count()
+    orders = ClientOrder.objects.all()
+    order_count = orders.count()
+    # customer = Client.objects.filter(groups=2)
+    # customer_count = customer.count()
+
+    # if request.method == 'POST':
+    #     form = ClientOrderForm(request.POST)
+    #     if form.is_valid():
+    #         obj = form.save(commit=False)
+    #         obj.customer = request.user
+    #         obj.save()
+    #         return redirect('dashboard-index')
+    # else:
+    # form = ClientOrderForm()
+    context = {
+        # 'form': form,
+        'orders': orders,
+        'product': product,
+        'product_count': product_count,
+        'order_count': order_count,
+        # 'customer_count': customer_count,
+    }
+    return render(request, 'dashboard/index.html', context)
     
-    return render(request, "dashboard/index.html")
 # ------------END INDEX-----------------------#
 
 @login_required(login_url='user-login')
