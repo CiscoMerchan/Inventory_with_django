@@ -202,21 +202,24 @@ def purchase_order(request):
     if request.method == 'POST':
         form = PurchaseOrderForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Save the purchase order
+            order = form.save()
+
+            # Update the product quantity
+            product = order.product
+            product.quantity += order.quantity
+            product.save()
+
             return redirect('dashboard-purchase-order')
     else:
         # READ
         form = PurchaseOrderForm()
-       
-    orders = PurchaseOrder.objects.all()    
-
+    
+    orders = PurchaseOrder.objects.all()
     context = {
-        'orders':orders,
-        'form':form,
-        
+        'orders': orders,
+        'form': form,
     }
-
-
     return render(request, "dashboard/purchase_order.html", context)
 
 
