@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, Supplier, Client, PurchaseOrder
 
 # to render the product form to enter new products
-from .forms import ProductForm, ClientForm, SupplierFrom, PurchaseOrderForm
+from .forms import ProductForm, ClientForm, SupplierFrom, PurchaseOrderForm, SearchPurchaseOrderForm
+
+# to seach 
+from django.db.models import Q
 
 # Create your views here.
 # ------------INDEX -----------------------#
@@ -204,13 +207,41 @@ def purchase_order(request):
     else:
         # READ
         form = PurchaseOrderForm()
-
+       
     orders = PurchaseOrder.objects.all()    
 
     context = {
         'orders':orders,
-        'form':form
+        'form':form,
+        
     }
 
 
     return render(request, "dashboard/purchase_order.html", context)
+
+
+# SEARCH
+def search_purchase_order(request):
+    form = SearchPurchaseOrderForm(request.POST or None)
+    queryset = PurchaseOrder.objects.all()
+
+    if request.method == 'POST' and form.is_valid():
+        order_code = form.cleaned_data.get('orderCode')
+        product = form.cleaned_data.get('product')
+        supplier = form.cleaned_data.get('supplier')
+        date = form.cleaned_data.get('date')
+        
+        if order_code:
+            queryset = queryset.filter(orderCode=order_code)
+        if product:
+            queryset = queryset.filter(product__name__icontains=product)
+        if supplier:
+            queryset = queryset.filter(supplier__icontains=supplier)
+        if date:
+            queryset = queryset.filter(order_date=date)
+
+    context = {
+        'form': form,
+        'queryset': queryset,
+    }
+    return render(request, 'dashboard/purchase_order_list.html', context)

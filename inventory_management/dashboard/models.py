@@ -13,7 +13,7 @@ class Product(models.Model):
 
     # to return in admin dashboard the name of the columns
     def __str__(self):
-        return f'Code: {self.code}. Name: {self.name}.'
+        return f'{self.name}.'
 
 """Client"""    
 class Client(models.Model):
@@ -34,12 +34,12 @@ class Supplier(models.Model):
 
     # to return in admin dashboard the name of the columns
     def __str__(self):
-        return f'Name: {self.name}'
+        return f'{self.name}'
 
 
 """purchase order"""    
 class PurchaseOrder(models.Model):
-    orderCode = models.CharField(max_length=20, null=True)
+    orderCode = models.CharField(max_length=20 , blank=True, null=True)
     product = models.ForeignKey(Product,on_delete=models.CASCADE, related_name='purchase_orders')
     supplier = models.ForeignKey(Supplier,on_delete=models.CASCADE, related_name='purchase_orders')
     quantity = models.IntegerField()
@@ -47,7 +47,7 @@ class PurchaseOrder(models.Model):
     
     # to return in admin dashboard the name of the columns
     def __str__(self):
-        return f'Order: {self.orderCode}. Product Name: {self.product}. Supplier: {self.supplier}. Qty: {self.quantity}. date: {self.order_date}'
+        return f'{self.orderCode}'
 
 """Client order"""    
 class ClientOrder(models.Model):

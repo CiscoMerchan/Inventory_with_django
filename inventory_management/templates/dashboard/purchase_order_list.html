@@ -1,0 +1,58 @@
+{% extends 'partials/base.html' %}
+{% block title %}Edit Supplier page{% endblock  %}
+<!-- Loading crispy to form -->
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">
+                <div class="border bg-white p-3">
+                    <h3>Search Purchase Order</h3>
+                    <hr>
+                    <form method="post" >
+                        {% csrf_token %}  
+                        {{ form|crispy }}<br>
+                        <input id="id_query" class="btn btn-info" type="submit" value="Search">
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="table-result" >
+            {% if queryset %}
+                <table >
+                    <thead>
+                        <tr>
+                            <th>Order Code</th>
+                            <th>Product</th>
+                            <th>Supplier</th>
+                            <th>Order Date</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in queryset %}
+                            <tr>
+                                <td>{{ order.orderCode }}</td>
+                                <td>{{ order.product }}</td>
+                                <td>{{ order.supplier }}</td>
+                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.quantity }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No purchase orders found.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock  %}
+
+{% block javascript %}
+    <!-- <script>
+        document.querySelector('#id_query').addEventListener('click', function() {
+            document.querySelector('#table-result').style.display = 'block';
+        });
+    </script> -->
+{% endblock %}

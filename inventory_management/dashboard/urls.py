@@ -11,6 +11,8 @@ urlpatterns = [
     # order
     path('order/', views.order, name='dashboard-order'),
     path('purchase/order/', views.purchase_order, name='dashboard-purchase-order'),
+    path('purchase/search/', views.search_purchase_order, name='dashboard-purchase-order-list'),
+    
     # client
     path('client/', views.client, name='dashboard-client'),
     path('client/update/<int:pk>', views.client_update, name='dashboard-client-update'),

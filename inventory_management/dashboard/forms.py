@@ -35,6 +35,19 @@ class PurchaseOrderForm(forms.ModelForm):
         fields = [
             'orderCode', 'product', 'supplier', 'quantity',
         ]
+
+class SearchPurchaseOrderForm(forms.ModelForm):
+    orderCode = forms.ModelChoiceField(queryset=PurchaseOrder.objects.all(), required=False)
+    product = forms.ModelChoiceField(queryset=Product.objects.all(), required=False)
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(), required=False)
+    date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    class Meta:
+        model = PurchaseOrder
+        fields = ['orderCode', 'product', 'supplier', 'date']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }
+
     
 
 

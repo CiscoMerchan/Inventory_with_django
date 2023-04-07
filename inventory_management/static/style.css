@@ -13,3 +13,7 @@ h3{
 .image_product{
     width: 100%;
 }
+
+#table-result{
+    display: none;
+}
