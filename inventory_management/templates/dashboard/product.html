@@ -33,9 +33,9 @@
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
                     <th scope="col">Quantity</th>
-                    <!-- <th scope="col">Activity</th> -->
                     <th scope="col">Description</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Activity</th>
+                    <!-- <th scope="col">Image</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     <td>{{ item.category }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.description }}</td>
-                    <td><img class="image_product" src="{{ item.image }}" alt="{{ item.name }}"  ></td>
+                    <!-- <td><img class="image_product" src="{{ item.image }}" alt="{{ item.name }}"  ></td> -->
                     <td>
                         <a class="btn btn-info btn-sm mr-2"
                             href="{% url 'dashboard-product-update' item.id %}">Edit</a>
